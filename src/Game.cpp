@@ -138,13 +138,13 @@ void Game::handleEvents() {
 
 void Game::update() {
     ball->move(player1);
-
 }
 
 void Game::render() {
     SDL_SetRenderDrawColor(renderer, 255,255,255,255); // set color to write
     SDL_RenderClear(renderer); // clear renderer with latest set color
 
+    map->DrawMap();
     //render game objects
     player1->render(renderer); // player
     ball->render(renderer);

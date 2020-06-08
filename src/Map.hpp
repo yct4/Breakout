@@ -21,7 +21,10 @@ class Map {
         SDL_Texture* grass;
         SDL_Texture* water;
 
-        int map[20][25];
+        static const int MAP_WIDTH = 20;
+        static const int MAP_HEIGHT = 25;
+
+        int map[MAP_WIDTH][MAP_HEIGHT];
 };
 
 
