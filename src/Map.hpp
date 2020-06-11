@@ -11,7 +11,11 @@ class Map {
         Map();
         ~Map();
 
-        void LoadMap(int arr[20][25]);
+        static const int MAP_WIDTH = 25;
+        static const int MAP_HEIGHT = 20;
+
+        void LoadMap(int** arr);
+        void init();
         void DrawMap();
 
     //private:
@@ -21,7 +25,7 @@ class Map {
         SDL_Texture* grass;
         SDL_Texture* water;
 
-        int map[20][25];
+        int** map;
 };
 
 
