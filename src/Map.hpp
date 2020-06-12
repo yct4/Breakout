@@ -3,6 +3,7 @@
 
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
+#include "Block.hpp"
 
 class Map {
 
@@ -26,6 +27,7 @@ class Map {
         SDL_Texture* water;
 
         int** map;
+        Block* sampleBlock;
 };
 
 

@@ -13,7 +13,7 @@ public:
     int speed = 300;
 
     void init(int _x, int _y, int _up, int _down);
-    void render(SDL_Renderer* render);
+    void render();
     void move(SDL_Event& event);
     void reset();
     bool hasWon();
