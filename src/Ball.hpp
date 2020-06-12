@@ -15,7 +15,7 @@ public:
 
     void init();
     void move(Player* player1);
-    void render(SDL_Renderer* render);
+    void render();
     void reset();
     void resetPosition();
 

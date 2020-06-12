@@ -63,6 +63,9 @@ void Map::init() {
     }
 
     LoadMap(lvl1);
+
+    sampleBlock = new Block();
+    sampleBlock->init(300, 300);
 }
 
 
@@ -78,18 +81,20 @@ void Map::DrawMap() {
 
             switch (type) {
                 case 0:
-                    TextureManager::Draw(water, dest);
+                    TextureManager::Draw(water, &dest);
                     break;
                 case 1: 
-                    TextureManager::Draw(grass, dest);
+                    TextureManager::Draw(grass, &dest);
                     break;
                 case 2:
-                    TextureManager::Draw(dirt, dest);
+                    TextureManager::Draw(dirt, &dest);
                     break;
                 default:
                     break;
             }
         }
     }
+
+    sampleBlock->render();
 }
 

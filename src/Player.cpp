@@ -36,8 +36,8 @@ void Player::init(int _x, int _y, int _left, int _right) {
     score = 0;
 }
 
-void Player::render(SDL_Renderer* renderer) {
-    SDL_RenderCopy(renderer, playerTex, NULL, &dest); // player
+void Player::render() {
+    TextureManager::Draw(playerTex, &dest); // player
 }
 
 SDL_Rect* Player::getRect() {

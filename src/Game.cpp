@@ -119,8 +119,8 @@ void Game::render() {
 
     map->DrawMap();
     //render game objects
-    player1->render(renderer); // player
-    ball->render(renderer);
+    player1->render(); // player
+    ball->render();
 
     SDL_RenderPresent(renderer);
 }
@@ -156,7 +156,7 @@ void Game::renderStartScreen() {
     } 
 
     // render start button to screen
-    SDL_RenderCopy(renderer, buttonTex, NULL, &startButtonRect);
+    TextureManager::Draw(buttonTex, &startButtonRect);
 
     // render screen
     SDL_RenderPresent(renderer);

@@ -1,4 +1,4 @@
-OBJS = main.cpp Game.cpp Game.hpp TextureManager.cpp TextureManager.hpp Map.cpp Map.hpp Ball.hpp Ball.cpp Player.hpp Player.cpp
+OBJS = main.cpp Game.cpp Game.hpp TextureManager.cpp TextureManager.hpp Map.cpp Map.hpp Ball.hpp Ball.cpp Player.hpp Player.cpp Block.hpp Block.cpp
 
 OBJ_Name = SDLMain
 

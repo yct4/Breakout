@@ -62,8 +62,8 @@ void Ball::move(Player* player1) {
     dest.y += velocity_y;
 }
 
-void Ball::render(SDL_Renderer* renderer) {
-    SDL_RenderCopy(renderer, ballTex, NULL, &dest);
+void Ball::render() {
+    TextureManager::Draw(ballTex, &dest);
 }
 
 void Ball::reset() {
