@@ -14,6 +14,7 @@ Player moves a paddle to hit a ball. The ball will rebound and hit blocks above 
 2.1. Game ends when the ball hits the bottom boundary.
 3. Add a map with the breakout blocks. (Block class? Map class?)
 3.1. Blocks are removed from the map as the ball hits each block.
+3.1.1. Detect which side of the block was hit by the ball to determine the resulting velocity of the ball
 3.2. Game polls and refreshes the map. 
 3.3. Make Game class to tie stuff together.
 4. Display score at the top.

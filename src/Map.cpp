@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-const int BLOCK_ROWS = 8;
+// const int BLOCK_ROWS = 8;
 int** lvl1;
 
 using namespace std;
@@ -59,15 +59,20 @@ void Map::init() {
     for(int r = 0; r < BLOCK_ROWS; r++) { // top BLOCK_ROWS are blocks
         for(int c = 0; c < MAP_WIDTH; c++) {
             lvl1[r][c] = rand() % 2 + 1; // 1 or 2 TODO: add more colors of blocks
+            // Block* b = new Block();
+            // b->init(r*32, c*32);
+            // blockList.push_back(b);
         }
     }
 
     LoadMap(lvl1);
 
-    sampleBlock = new Block();
-    sampleBlock->init(300, 300);
+
 }
 
+void Map::update(Ball* ball) {
+
+}
 
 void Map::DrawMap() {
     int type = 0;
@@ -95,6 +100,5 @@ void Map::DrawMap() {
         }
     }
 
-    sampleBlock->render();
 }
 

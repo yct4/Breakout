@@ -4,6 +4,10 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
 #include "Block.hpp"
+#include "Ball.hpp"
+//#include <list>
+
+using namespace std;
 
 class Map {
 
@@ -14,9 +18,11 @@ class Map {
 
         static const int MAP_WIDTH = 25;
         static const int MAP_HEIGHT = 20;
+        static const int BLOCK_ROWS = 8;
 
         void LoadMap(int** arr);
         void init();
+        void update(Ball* ball);
         void DrawMap();
 
     //private:
@@ -27,7 +33,7 @@ class Map {
         SDL_Texture* water;
 
         int** map;
-        Block* sampleBlock;
+        std::list<Block*> blockList;
 };
 
 
