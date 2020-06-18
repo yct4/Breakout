@@ -34,6 +34,7 @@ void Ball::init() {
     // speed of ball
     velocity_x = INIT_X_VELOCITY;
     velocity_y = INIT_Y_VELOCITY;
+
 }
 
 // returns 1 while between rounds else returns 0
