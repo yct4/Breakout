@@ -5,9 +5,6 @@
 #include "SDL2/SDL_image.h"
 #include "Block.hpp"
 #include "Ball.hpp"
-//#include <list>
-
-using namespace std;
 
 class Map {
 
@@ -33,7 +30,6 @@ class Map {
         SDL_Texture* water;
 
         int** map;
-        std::list<Block*> blockList;
 };
 
 

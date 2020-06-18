@@ -5,7 +5,7 @@
 
 using namespace std;
 
-const vector<char*> BLOCK_FILES = {"../assets/dirt.png", "../assets/grass.png"};
+const vector<char*> BLOCK_FILES = {"..assets/water.png", "../assets/grass.png", "../assets/dirt.png"};
 // const int SCREEN_HEIGHT = 640;
 // const int SCREEN_WIDTH = 800;
 const int BLOCK_WIDTH = 32;
@@ -14,9 +14,9 @@ const int BLOCK_HEIGHT = 32;
 Block::Block() {}
 Block::~Block() {}
 
-void Block::init(int _x, int _y) {
+void Block::init(int _x, int _y, int color) {
     // loads file as texture
-    blockTex = TextureManager::LoadTexture(BLOCK_FILES[rand() % 2]); //TODO add more colors?
+    blockTex = TextureManager::LoadTexture(BLOCK_FILES[color]); //TODO add more colors?
 
     // adjust height and width of our image box.
     dest.w = BLOCK_WIDTH;
@@ -27,6 +27,10 @@ void Block::init(int _x, int _y) {
 
     isDestroyed = false;
 }
+
+void Block::changeColor(int color) {
+    blockTex = TextureManager::LoadTexture(BLOCK_FILES[color]);
+};
 
 void Block::render() {
     if (!isDestroyed) {

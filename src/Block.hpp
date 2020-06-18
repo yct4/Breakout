@@ -11,8 +11,11 @@ public:
     Block();
     ~Block();
 
-    void init(int _x, int _y);
+    void init(int _x, int _y, int color);
     void render();
+
+    void changeColor(int color);
+
     void reset() {
         isDestroyed = false;
     };
