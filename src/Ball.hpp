@@ -18,6 +18,9 @@ public:
     void render();
     void reset();
     void resetPosition();
+    SDL_Rect* getDestRect() {
+        return &dest;
+    };
 
     static const char* BALL_FILE;
 

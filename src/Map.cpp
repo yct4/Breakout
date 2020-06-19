@@ -95,7 +95,13 @@ void Map::init() {
 }
 
 void Map::update(Ball* ball) {
-
+    SDL_Rect* r = ball->getDestRect();
+    int x = r->x / 32; // block is 32 x 32 TODO change size
+    int y = r->y / 32;
+    Block* block = blockMap[y][x];
+    if(block) {
+        block->destroy();
+    }
 }
 
 void Map::DrawMap() {

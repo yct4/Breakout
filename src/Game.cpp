@@ -111,6 +111,7 @@ void Game::handleEvents() {
 
 void Game::update() {
     ball->move(player1);
+    map->update(ball);
 }
 
 void Game::render() {
