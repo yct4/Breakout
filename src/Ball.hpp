@@ -18,8 +18,22 @@ public:
     void render();
     void reset();
     void resetPosition();
+    SDL_Rect* getDestRect() {
+        return &dest;
+    };
+
+    void getVelocity(int* x, int* y) {
+        *x = velocity_x;
+        *y = velocity_y;
+    }
+
+    void updateVelocity(int x, int y) {
+        velocity_x = x;
+        velocity_y = y;
+    };
 
     static const char* BALL_FILE;
+    static const int ANGLE_RANGE = 5;
 
 private:
     SDL_Rect dest;

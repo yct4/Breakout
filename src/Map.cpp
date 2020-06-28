@@ -67,7 +67,7 @@ void Map::init() {
         lvl1[j] = (int*)malloc(MAP_WIDTH * sizeof(int));
     }
 
-    blockMap = (Block***)malloc(sizeof(int*) * MAP_HEIGHT); // allocate memory for blockMap
+    blockMap = (Block***)malloc(sizeof(Block**) * MAP_HEIGHT); // allocate memory for blockMap
     for (int j = 0; j < MAP_HEIGHT; j++) {
         blockMap[j] = (Block**)malloc(MAP_WIDTH * sizeof(Block*));
     }
@@ -94,7 +94,33 @@ void Map::init() {
 
 }
 
+// TODO get rid of dirt only grass can slow down ball
 void Map::update(Ball* ball) {
+    SDL_Rect* ball_rect = ball->getDestRect();
+    int x = ball_rect->x / 32; // block is 32 x 32 TODO change size
+    int y = ball_rect->y / 32;
+
+    bool isUpdated = false;
+    for (int x_temp = x; x_temp <= x + 1; x_temp++) { // checks adjacent blocks
+        if(x_temp < 0 || y < 0 || x_temp >= MAP_WIDTH || y >= MAP_HEIGHT) {
+            continue;
+        }
+        Block* block = blockMap[y][x_temp];
+        if (block == NULL) {
+            continue;
+        }
+        if (SDL_HasIntersection(block->getRect(), ball_rect) && !block->getIsDestroyed()) {
+            isUpdated = true;
+            block->destroy();
+        }
+    }
+    if (isUpdated) {
+        int velocity_y, velocity_x;
+        ball->getVelocity(&velocity_x, &velocity_y);
+        velocity_y *= -1;
+        velocity_x = rand() % Ball::ANGLE_RANGE - (Ball::ANGLE_RANGE-1) / 2;
+        ball->updateVelocity(velocity_x, velocity_y);
+    }
 
 }
 
@@ -102,7 +128,7 @@ void Map::DrawMap() {
 
     for(int row = 0; row < MAP_HEIGHT; row++) {
         for(int col = 0; col < MAP_WIDTH; col++) {
-            if (blockMap[row][col] != NULL) {
+            if (blockMap[row][col] != NULL && !blockMap[row][col]->getIsDestroyed()) {
                 blockMap[row][col]->render();
             } else {
                 dest.x = col * 32;

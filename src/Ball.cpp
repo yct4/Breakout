@@ -6,7 +6,7 @@
 const char* Ball::BALL_FILE = "../assets/ball.png";
 const int SCREEN_HEIGHT = 640;
 const int SCREEN_WIDTH = 800;
-const int ANGLE_RANGE = 5;
+
 const int INIT_X_VELOCITY = 1;
 const int INIT_Y_VELOCITY = 4;
 const int VELOCITY_INCREMENT = 2;
