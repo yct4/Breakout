@@ -11,10 +11,10 @@ public:
     Block();
     ~Block();
 
-    void init(int _x, int _y, int color);
+    void init(int _x, int _y, int _color);
     void render();
 
-    void changeColor(int color);
+    void changeColor(int _color);
 
     void reset() {
         isDestroyed = false;
@@ -24,11 +24,30 @@ public:
         isDestroyed = true;
     };
 
+    bool getIsDestroyed() {
+        return isDestroyed;
+    }
+
+    int getColor() {
+        return color;
+    }
+
+    SDL_Rect* getRect() {
+        return &dest;
+    }
+
+    enum BlockType {
+        WATER = 0,
+        GRASS = 1,
+        DIRT = 2
+    };
+
 private:
     SDL_Rect dest;
     SDL_Texture* blockTex;
 
     bool isDestroyed;
+    int color;
 
 };
 
