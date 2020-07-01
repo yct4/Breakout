@@ -110,7 +110,7 @@ void Game::handleEvents() {
 
 
 void Game::update() {
-    ball->move(player1);
+    isRunning = ball->move(player1);
     map->update(ball);
 }
 
@@ -167,6 +167,7 @@ void Game::renderStartScreen() {
 void Game::reset() { // reset player and ball to initial positions and reset ball velocity
     player1->reset();
     ball->reset();
+    map->reset();
 }
 
 void Game::clean() {

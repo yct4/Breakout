@@ -140,3 +140,15 @@ void Map::DrawMap() {
 
 }
 
+// resets current map
+void Map::reset() {
+    for(int r = 0; r < MAP_HEIGHT; r++) { // top BLOCK_ROWS are blocks
+        for(int c = 0; c < MAP_WIDTH; c++) {
+            if(blockMap[r][c] == NULL) { // no block to reset in current map
+                continue;
+            }
+            blockMap[r][c]->reset();
+        }
+    }
+}
+

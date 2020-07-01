@@ -37,8 +37,12 @@ void Ball::init() {
 
 }
 
-// returns 1 while between rounds else returns 0
-void Ball::move(Player* player1) {
+// returns false if the ball hits the bottom of the screen else returns true
+bool Ball::move(Player* player1) {
+
+    if(dest.y + dest.h >= SCREEN_HEIGHT) {
+        return false; // GAME OVER
+    }
 
     //hits player paddle
     if (SDL_HasIntersection(player1->getRect(), &dest)) {
@@ -61,6 +65,7 @@ void Ball::move(Player* player1) {
 
     dest.x += velocity_x;
     dest.y += velocity_y;
+    return true;
 }
 
 void Ball::render() {
