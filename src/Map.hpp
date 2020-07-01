@@ -21,6 +21,7 @@ class Map {
         void init();
         void update(Ball* ball);
         void DrawMap();
+        void reset();
 
     //private:
 

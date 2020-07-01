@@ -14,7 +14,7 @@ public:
 
 
     void init();
-    void move(Player* player1);
+    bool move(Player* player1);
     void render();
     void reset();
     void resetPosition();
