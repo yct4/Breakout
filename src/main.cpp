@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
     int frameTime;
 
     game = new Game();
-    game->init("test game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 640, false);
+    game->init("test game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Game::SCREEN_WIDTH, Game::SCREEN_HEIGHT, false);
 
     waitInStartScreen();
 

@@ -109,7 +109,8 @@ void Map::update(Ball* ball) {
         if (block == NULL) {
             continue;
         }
-        if (SDL_HasIntersection(block->getRect(), ball_rect) && !block->getIsDestroyed()) {
+        // replace dirt with grass
+        if (SDL_HasIntersection(block->getRect(), ball_rect) && !block->getIsDestroyed() && block->getColor() != Block::GRASS) {
             isUpdated = true;
             block->destroy();
         }
@@ -128,7 +129,7 @@ void Map::DrawMap() {
 
     for(int row = 0; row < MAP_HEIGHT; row++) {
         for(int col = 0; col < MAP_WIDTH; col++) {
-            if (blockMap[row][col] != NULL && !blockMap[row][col]->getIsDestroyed()) {
+            if (blockMap[row][col] != NULL) {
                 blockMap[row][col]->render();
             } else {
                 dest.x = col * 32;
