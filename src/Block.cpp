@@ -17,8 +17,8 @@ Block::~Block() {}
 
 void Block::init(int _x, int _y, int _color) {
     // loads file as texture
-    blockTex = TextureManager::LoadTexture(BLOCK_FILES[_color]); //TODO add more colors?
-    color = _color;
+    this->blockTex = TextureManager::LoadTexture(BLOCK_FILES[_color]); //TODO add more colors?
+    this->color = _color;
 
     // adjust height and width of our image box.
     dest.w = BLOCK_WIDTH;
@@ -31,16 +31,15 @@ void Block::init(int _x, int _y, int _color) {
 }
 
 void Block::changeColor(int _color) {
-    blockTex = TextureManager::LoadTexture(BLOCK_FILES[_color]);
-    color = _color; 
+    this->blockTex = TextureManager::LoadTexture(BLOCK_FILES[_color]);
+    this->color = _color; 
 };
 
 void Block::render() {
     if (!isDestroyed) {
-        //SDL_RenderCopy(renderer, blockTex, NULL, &dest);
-        TextureManager::Draw(blockTex, &dest);
+        TextureManager::Draw(this->blockTex, &dest);
     } else {
-        SDL_Texture* waterTex = TextureManager::LoadTexture(BLOCK_FILES[0]);
-        TextureManager::Draw(waterTex, &dest);
+        SDL_Texture* grassTex = TextureManager::LoadTexture(BLOCK_FILES[GRASS]);
+        TextureManager::Draw(grassTex, &dest);
     }
 }
