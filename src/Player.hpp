@@ -7,12 +7,12 @@
 
 class Player {
 public:  
-    Player(int _up, int _down);
+    Player(int _up, int _down, int _x, int _y);
     ~Player();
 
     int speed = 300;
 
-    void init(int _x, int _y, int _up, int _down);
+    void init();
     void render();
     void move(SDL_Event& event);
     void reset();
@@ -31,8 +31,8 @@ private:
     const int scancode_left;
     const int scancode_right;
 
-    int init_x;
-    int init_y;
+    const int init_x;
+    const int init_y;
 
     int score;
 

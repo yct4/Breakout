@@ -7,10 +7,6 @@
 using namespace std;
 
 const char* START_BUTTON_FILE = "../assets/start_button.png";
-const char* CONTINUE_BUTTON_FILE = "../assets/continue.jpg";
-const vector<char*> NUMBER_FILES = {"../assets/zero.jpg","../assets/one.png", "../assets/two.jpg", "../assets/three.jpg", "../assets/four.png", "../assets/five.jpg"};
-const int SCREEN_HEIGHT = 640;
-const int SCREEN_WIDTH = 800;
 
 const int PLAYER_SCALE = 2;
 const int PLAYER_IMG_HEIGHT = 27;
@@ -53,26 +49,6 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     startButtonRect.x = (SCREEN_WIDTH - startButtonRect.w) / 2;
     startButtonRect.y = (SCREEN_HEIGHT - startButtonRect.h) / 2;
 
-    // initialize score number pictures
-    for(int i = 0; i < 6; i++) {
-        numberTex[i] = TextureManager::LoadTexture(NUMBER_FILES[i]);
-
-        SDL_QueryTexture(numberTex[i], NULL, NULL, &player1ScoreRect.w, &player1ScoreRect.h);
-        player1ScoreRect.w /= 4;
-        player1ScoreRect.h /= 4;
-
-    }
-
-    // sets initial position of player2 score to middle of right half of screen
-    player1ScoreRect.x = (SCREEN_WIDTH - player1ScoreRect.w) * 3 / 4;
-    player1ScoreRect.y = (SCREEN_HEIGHT - player1ScoreRect.h) / 4;
-
-    // game over banner
-    gameOverTex = TextureManager::LoadTexture("../assets/gameOver.png");
-    SDL_QueryTexture(gameOverTex, NULL, NULL, &gameOverRect.w, &gameOverRect.h);
-    gameOverRect.x = (SCREEN_WIDTH - gameOverRect.w) / 2;
-    gameOverRect.y = (SCREEN_HEIGHT - gameOverRect.h) * 3 / 4;
-
     // init map
     map = new Map();
     map->init();
@@ -82,10 +58,10 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     ball->init();
 
     // init player, start in the middle of the bottom of the screen
-    player1 = new Player(SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT);
     int x1_init = (SCREEN_WIDTH - PLAYER_IMG_WIDTH / PLAYER_SCALE) / 2; 
     int y1_init = (SCREEN_HEIGHT - PLAYER_IMG_HEIGHT / PLAYER_SCALE);
-    player1->init(x1_init, y1_init, SDL_SCANCODE_UP, SDL_SCANCODE_DOWN);
+    player1 = new Player(SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT, x1_init, y1_init);
+    player1->init();
 
 }
 

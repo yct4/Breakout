@@ -6,11 +6,11 @@
 #include "Map.hpp"
 #include "Ball.hpp"
 #include "Player.hpp"
+#include "Block.hpp"
 
 class Game {
 
     public:
-        int close = 0;
 
         Game();
         ~Game();
@@ -36,6 +36,9 @@ class Game {
             return isExited;
         };
 
+        static const int SCORE_HEIGHT = 64; // takes up 2 rows of blocks (each block is 32x32)
+        static const int SCREEN_HEIGHT = Map::MAP_HEIGHT * Block::BLOCK_HEIGHT + SCORE_HEIGHT;
+        static const int SCREEN_WIDTH = Map::MAP_WIDTH * Block::BLOCK_WIDTH;
 
     private:
         SDL_Window* window;
@@ -49,13 +52,6 @@ class Game {
         SDL_Rect startButtonRect;
         SDL_Texture* buttonTex;
 
-        //banners
-        SDL_Rect gameOverRect;
-        SDL_Texture* gameOverTex;
-
-        // score
-        SDL_Rect player1ScoreRect;
-        SDL_Texture* numberTex[]; // must be last line of class
 };
 
 #endif // Game_hpp
