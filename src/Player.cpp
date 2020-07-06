@@ -6,13 +6,12 @@ const char* Player::PLAYER_FILE = "../assets/pong_player.png";
 const int SCREEN_HEIGHT = 640;
 const int SCREEN_WIDTH = 800;
 
-Player::Player(int _left, int _right) : scancode_left(_left), scancode_right(_right) {};
+Player::Player(int _left, int _right, int _x, int _y) : scancode_left(_left), scancode_right(_right), init_x(_x), init_y(_y) {};
 Player::~Player() {}
 
-void Player::init(int _x, int _y, int _left, int _right) {
+void Player::init() {
         // loads file as texture
     playerTex = TextureManager::LoadTexture(PLAYER_FILE);
-    
 
     // connects our texture with dest to control position
     SDL_QueryTexture(playerTex, NULL, NULL, &dest.w, &dest.h);
@@ -21,13 +20,9 @@ void Player::init(int _x, int _y, int _left, int _right) {
     dest.w /= 2;
     dest.h /= 2;
 
-    // sets initial x-position of object
-    dest.x = _x;
-    init_x = _x;
-
-    // sets initial y-position of object
-    dest.y = _y;
-    init_y = _y;
+    // sets initial-position of player
+    dest.x = init_x;
+    dest.y = init_y;
 
     // speed of player
     speed = 300;

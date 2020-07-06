@@ -11,6 +11,9 @@ public:
     Block();
     ~Block();
 
+    static const int BLOCK_WIDTH = 32;
+    static const int BLOCK_HEIGHT = 32;
+
     void init(int _x, int _y, int _color);
     void render();
 
