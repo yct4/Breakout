@@ -15,4 +15,6 @@ run :
 build-linux: $(OBJS)
 	g++ $(OBJS) -w -lSDL2 -lSDL2_image -lSDL2_ttf -o $(OBJ_Name)
 
+run-linux: ./$(OBJ_Name)
+
 .PHONY: build setup-windows setup-osx

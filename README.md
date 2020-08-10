@@ -3,6 +3,8 @@ A game based on the old arcade game Breakout where the player replaces blocks of
 
 ## Development
 
+### Using Virtualbox and Ubuntu Desktop
+
 Everything will be run and compiled using an Ubuntu Desktop Image in Virtualbox.
 
 1. Download Virtualbox on Mac or Windows.
@@ -13,9 +15,18 @@ Everything will be run and compiled using an Ubuntu Desktop Image in Virtualbox.
 5. Run install script in the terminal for ubuntu for desktop.
 `sudo ./install.sh`
 
+Finally to compile:
+`cd src`
+`make build-linux`
+
+To run:
+`make run`
+
 Source: [https://www.instructables.com/id/How-to-Create-an-Ubuntu-Virtual-Machine-with-Virtu/](https://www.instructables.com/id/How-to-Create-an-Ubuntu-Virtual-Machine-with-Virtu/)
 
-### Attempt 1: Xquartz/XServer - Deprecated
+### TBD - Developing on a VM on a Cloud provider
+
+### Xquartz/XServer - Deprecated
 
 An earlier attempt involved trying to use Xquartz/Server and running a GUI-based application
 using Docker on Windows or MAC. This, however, ran into multiple errors on a Mac so was abandoned.
@@ -24,7 +35,7 @@ Source:
 1. Mac, Windows, Linux: [Instructions](https://cuneyt.aliustaoglu.biz/en/running-gui-applications-in-docker-on-windows-linux-mac-hosts/)
 2. Mac: [Instructions](https://sourabhbajaj.com/blog/2017/02/07/gui-applications-docker-mac/)
 
-### Attempt 2: Using Vagrant and Virtualbox - Deprecated
+### Using Vagrant and Virtualbox - Deprecated
 
 While this mostly worked, I couldn't manage to open the desktop ubuntu using vagrant AND virtualbox,
 despite numerous attempts. My Stackoverflow searches are below.
