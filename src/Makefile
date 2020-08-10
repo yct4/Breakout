@@ -12,10 +12,7 @@ clean :
 run :
 	$(OBJ_Name).exe
 
-setup-windows:
-
-setup-osx:
-
-build:
+build-linux: $(OBJS)
+	g++ $(OBJS) -w -lSDL2 -lSDL2_image -lSDL2_ttf -o $(OBJ_Name)
 
 .PHONY: build setup-windows setup-osx
