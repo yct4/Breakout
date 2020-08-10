@@ -21,8 +21,8 @@ An earlier attempt involved trying to use Xquartz/Server and running a GUI-based
 using Docker on Windows or MAC. This, however, ran into multiple errors on a Mac so was abandoned.
 
 Source:
-1. Mac, Windows, Linux: [https://cuneyt.aliustaoglu.biz/en/running-gui-applications-in-docker-on-windows-linux-mac-hosts/](https://cuneyt.aliustaoglu.biz/en/running-gui-applications-in-docker-on-windows-linux-mac-hosts/)
-2. Mac: [https://sourabhbajaj.com/blog/2017/02/07/gui-applications-docker-mac/](https://sourabhbajaj.com/blog/2017/02/07/gui-applications-docker-mac/)
+1. Mac, Windows, Linux: [Instructions](https://cuneyt.aliustaoglu.biz/en/running-gui-applications-in-docker-on-windows-linux-mac-hosts/)
+2. Mac: [Instructions](https://sourabhbajaj.com/blog/2017/02/07/gui-applications-docker-mac/)
 
 ### Attempt 2: Using Vagrant and Virtualbox - Deprecated
 
@@ -32,7 +32,7 @@ despite numerous attempts. My Stackoverflow searches are below.
 Install vagrant: `brew cask install vagrant`
 Install virtualbox: `brew cask install virtualbox`.
 
-(Note: If the installation fails with an error, follow the directs here: [https://developer.apple.com/library/archive/technotes/tn2459/_index.html](https://developer.apple.com/library/archive/technotes/tn2459/_index.html).)
+(Note: If the installation fails with an error, follow the directions [here](https://developer.apple.com/library/archive/technotes/tn2459/_index.html).)
 
 Install vagrant-manager: `brew cask install vagrant-manager`
 
@@ -40,7 +40,7 @@ Source: [https://sourabhbajaj.com/mac-setup/Vagrant/README.html](https://sourabh
 
 Attempt to get ubuntu desktop working with vagrant:
 1. [https://stackoverflow.com/questions/26909433/ubuntu-via-vagrant-with-gui](https://stackoverflow.com/questions/26909433/ubuntu-via-vagrant-with-gui)
-2.[https://stackoverflow.com/questions/18878117/using-vagrant-to-run-virtual-machines-with-desktop-environment](https://stackoverflow.com/questions/18878117/using-vagrant-to-run-virtual-machines-with-desktop-environment)
+2. [https://stackoverflow.com/questions/18878117/using-vagrant-to-run-virtual-machines-with-desktop-environment](https://stackoverflow.com/questions/18878117/using-vagrant-to-run-virtual-machines-with-desktop-environment)
 3. [https://stackoverflow.com/questions/31845472/how-do-i-install-a-vagrant-linux-box-that-has-a-gui-gnome-kde](https://stackoverflow.com/questions/31845472/how-do-i-install-a-vagrant-linux-box-that-has-a-gui-gnome-kde)
 4. [https://stackoverflow.com/questions/15243405/is-it-possible-for-vagrant-to-use-an-os-iso-install-image-directly-or-create-a](https://stackoverflow.com/questions/15243405/is-it-possible-for-vagrant-to-use-an-os-iso-install-image-directly-or-create-a)
 
@@ -54,13 +54,13 @@ Player moves a paddle to hit a ball. The ball will rebound and hit blocks above 
 ## Tasks
 1. Showcase the paddle at the bottom of the screen. X
 2. Switch ball trajectory to up-down. X
-  - 2.1. Game ends when the ball hits the bottom boundary. X
+    - 2.1. Game ends when the ball hits the bottom boundary. X
 3. Add a map with the breakout blocks. (Block class? Map class?) X
-  - 3.1. Blocks are removed from the map as the ball hits each block. X
-  - 3.1.1. Detect which side of the block was hit by the ball to determine the resulting velocity of the ball
-  - 3.2. Game polls and refreshes the map. X
-  - 3.3. Make Game class to tie stuff together. X
+    - 3.1. Blocks are removed from the map as the ball hits each block. X
+    - 3.1.1. Detect which side of the block was hit by the ball to determine the resulting velocity of the ball
+    - 3.2. Game polls and refreshes the map. X
+    - 3.3. Make Game class to tie stuff together. X
 4. Display score at the top.
 5. Add levels
-  - 5.1. Display new level screen between levels.
-  - 5.2. Map class member to store scores (e.g. current level, current score, best score). 
+    - 5.1. Display new level screen between levels.
+    - 5.2. Map class member to store scores (e.g. current level, current score, best score).
