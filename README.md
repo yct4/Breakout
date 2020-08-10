@@ -6,9 +6,12 @@ A game based on the old arcade game Breakout where the player replaces blocks of
 Everything will be run and compiled using an Ubuntu Desktop Image in Virtualbox.
 
 1. Download Virtualbox on Mac or Windows.
-2. Download the Ubuntu for desktop .iso file from source.
-3. Ensure that the repo folder is shareable as per these [instructions]().
-3. Run install script in the terminal for ubuntu for desktop.
+2. Download the Ubuntu for desktop .iso file from [source](https://ubuntu.com/download/desktop).
+3. Ensure that the repo folder is shareable as per these [instructions](https://www.howtogeek.com/howto/2845/install-guest-additions-to-windows-and-linux-vms-in-virtualbox/) and then these[https://www.howtogeek.com/187703/how-to-access-folders-on-your-host-machine-from-an-ubuntu-virtual-machine-in-virtualbox/](https://www.howtogeek.com/187703/how-to-access-folders-on-your-host-machine-from-an-ubuntu-virtual-machine-in-virtualbox/)
+4. Ensure that the boot from floppy is switched [off](https://askubuntu.com/questions/263421/ubuntu-in-virtualbox-wants-to-install-on-every-boot).
+4. To speed up the machine check [this](https://thomas.vanhoutte.be/miniblog/guide-speed-up-ubuntu-virtualbox/).
+5. Run install script in the terminal for ubuntu for desktop.
+`sudo ./install.sh`
 
 Source: [https://www.instructables.com/id/How-to-Create-an-Ubuntu-Virtual-Machine-with-Virtu/](https://www.instructables.com/id/How-to-Create-an-Ubuntu-Virtual-Machine-with-Virtu/)
 
