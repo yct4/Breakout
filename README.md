@@ -15,6 +15,10 @@ Everything will be run and compiled using an Ubuntu Desktop Image in Virtualbox.
 5. Run install script in the terminal for ubuntu for desktop.
 `sudo ./install.sh`
 
+Fix screen size:
+go to display settings on guest machine, change resolution to desired resolution
+on the Menu Bar, enable scaled mode
+
 Finally to compile:
 `cd src`
 `make build-linux`

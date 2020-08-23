@@ -45,7 +45,7 @@ void Map::LoadMap(int** arr) {
                 if(blockMap[r][c] == NULL) { // add block
                     Block* b = new Block();
                     //     (  _x,   _y,     color)
-                    b->init(c*32, r*32, arr[r][c]);
+                    b->init(c*32, r*32, arr[r][c]); // TODO add X_OFFSET, Y_OFFSET for score
                     blockMap[r][c] = b;
                 } else { // block already exists, change color
                     blockMap[r][c]->changeColor(arr[r][c]);
