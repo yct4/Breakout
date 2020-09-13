@@ -2,6 +2,8 @@
 #include "TextureManager.hpp"
 #include <stdlib.h>
 #include <string.h>
+#include "Game.hpp"
+#include "Ball.hpp"
 
 Block*** blockMap;
 int** lvl1;
@@ -45,7 +47,7 @@ void Map::LoadMap(int** arr) {
                 if(blockMap[r][c] == NULL) { // add block
                     Block* b = new Block();
                     //     (  _x,   _y,     color)
-                    b->init(c*32, r*32, arr[r][c]); // TODO add X_OFFSET, Y_OFFSET for score
+                    b->init(c*32, r*32 + Game::SCORE_HEIGHT, arr[r][c]); // TODO add X_OFFSET, Y_OFFSET for score
                     blockMap[r][c] = b;
                 } else { // block already exists, change color
                     blockMap[r][c]->changeColor(arr[r][c]);
@@ -61,7 +63,11 @@ void Map::LoadMap(int** arr) {
     }
 }
 
-void Map::init() {
+void Map::init(Ball* _ball, Player* _player1) {
+
+    ball = _ball;
+    player1 = _player1;
+	
     lvl1 = (int**)malloc(sizeof(int*) * MAP_HEIGHT); // allocate memory for lvl1
     for (int j = 0; j < MAP_HEIGHT; j++) {
         lvl1[j] = (int*)malloc(MAP_WIDTH * sizeof(int));
@@ -95,14 +101,28 @@ void Map::init() {
 }
 
 // TODO get rid of dirt only grass can slow down ball
-void Map::update(Ball* ball) {
+// returns false when Game over, else returns true
+// TODO subfunctions: look at map, look at ball
+bool Map::update() {
+    // ball local variables	
     SDL_Rect* ball_rect = ball->getDestRect();
     int x = ball_rect->x / 32; // block is 32 x 32 TODO change size
     int y = ball_rect->y / 32;
+    int ball_x = ball_rect->x; // left side of ball
+    int ball_y = ball_rect->y; // upper side of ball
+    int velocity_y, velocity_x;
+    ball->getVelocity(&velocity_x, &velocity_y);
+    int ball_height = ball_rect->h;
+    int ball_width = ball_rect->w;
 
+    // player local variables
+    SDL_Rect* player1_rect = player1->getRect();
+
+    // check if ball hit a block of dirt
     bool isUpdated = false;
     for (int x_temp = x; x_temp <= x + 1; x_temp++) { // checks adjacent blocks
-        if(x_temp < 0 || y < 0 || x_temp >= MAP_WIDTH || y >= MAP_HEIGHT) {
+	// check Map boundaries
+        if(x_temp < 0 || y < 0 || x_temp >= MAP_WIDTH || y >= (MAP_HEIGHT - Game::SCORE_HEIGHT)) {
             continue;
         }
         Block* block = blockMap[y][x_temp];
@@ -115,14 +135,47 @@ void Map::update(Ball* ball) {
             block->destroy();
         }
     }
+    // if ball hit block of dirt, change dirt to grass
     if (isUpdated) {
-        int velocity_y, velocity_x;
-        ball->getVelocity(&velocity_x, &velocity_y);
         velocity_y *= -1;
         velocity_x = rand() % Ball::ANGLE_RANGE - (Ball::ANGLE_RANGE-1) / 2;
         ball->updateVelocity(velocity_x, velocity_y);
     }
 
+    // check if player missed the ball
+    if(ball_y + ball_height >= Game::SCREEN_HEIGHT) { //TODO ball height constant
+    	return false; // Game over 
+    }
+
+    // check if ball hits player paddle, TODO add player1 to the Map, add list of players
+    if (SDL_HasIntersection(player1_rect, ball_rect)) {
+        // TODO make function for changing ball velocity
+	velocity_y *= -1;
+        velocity_x = rand() % Ball::ANGLE_RANGE - (Ball::ANGLE_RANGE-1) / 2;
+        ball->updateVelocity(velocity_x, velocity_y);
+    }
+     
+    // check if ball hits left boundary
+    if (ball_x <= 0) {
+    	ball->updatePosition(0, ball_y);
+	ball->updateVelocity(velocity_x * -1, velocity_y);
+    }
+
+    // check if ball hits right boundary
+    if ((ball_x + ball_width) >= Game::SCREEN_WIDTH) {
+    	ball->updatePosition(Game::SCREEN_WIDTH - ball_width, ball_y);
+	ball->updateVelocity(velocity_x * -1, velocity_y);
+    }
+
+    // check upper boundary
+    if (ball_y <= 0) {
+    	ball->updatePosition(ball_x, 0);
+	ball->updateVelocity(velocity_x, velocity_y * -1);
+    }
+
+    ball->updatePosition(ball_x + velocity_x, velocity_y);
+
+    return true;
 }
 
 void Map::DrawMap() {

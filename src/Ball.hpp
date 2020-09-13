@@ -14,7 +14,7 @@ public:
 
 
     void init();
-    bool move(Player* player1);
+    //bool move(Player* player1);
     void render();
     void reset();
     void resetPosition();
@@ -31,6 +31,11 @@ public:
         velocity_x = x;
         velocity_y = y;
     };
+
+    void updatePosition(int x, int y) {
+    	dest.x = x;
+	dest.y = y;
+    }
 
     static const char* BALL_FILE;
     static const int ANGLE_RANGE = 5;

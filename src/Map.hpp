@@ -18,12 +18,15 @@ class Map {
         static const int BLOCK_ROWS = 8;
 
         void LoadMap(int** arr);
-        void init();
-        void update(Ball* ball);
+        void init(Ball* _ball, Player* _player1);
+        bool update();
         void DrawMap();
         void reset();
 
     //private:
+
+	Ball* ball;
+	Player* player1;
 
         SDL_Rect src, dest;
         SDL_Texture* dirt;

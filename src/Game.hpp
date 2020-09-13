@@ -40,13 +40,14 @@ class Game {
         static const int SCREEN_HEIGHT = Map::MAP_HEIGHT * Block::BLOCK_HEIGHT + SCORE_HEIGHT;
         static const int SCREEN_WIDTH = Map::MAP_WIDTH * Block::BLOCK_WIDTH;
 
+	Player* player1;
+
     private:
         SDL_Window* window;
         bool isRunning;
         bool isExited;
         Map* map;
         Ball* ball;
-        Player* player1;
 
         // start button
         SDL_Rect startButtonRect;
