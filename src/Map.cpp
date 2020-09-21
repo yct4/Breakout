@@ -65,8 +65,8 @@ void Map::LoadMap(int** arr) {
 
 void Map::init(Ball* _ball, Player* _player1) {
 
-    ball = _ball;
-    player1 = _player1;
+    this->ball = _ball;
+    this->player1 = _player1;
 	
     lvl1 = (int**)malloc(sizeof(int*) * MAP_HEIGHT); // allocate memory for lvl1
     for (int j = 0; j < MAP_HEIGHT; j++) {
@@ -97,7 +97,6 @@ void Map::init(Ball* _ball, Player* _player1) {
 
     LoadMap(lvl1);
 
-
 }
 
 // TODO get rid of dirt only grass can slow down ball
@@ -106,12 +105,16 @@ void Map::init(Ball* _ball, Player* _player1) {
 bool Map::update() {
     // ball local variables	
     SDL_Rect* ball_rect = ball->getDestRect();
+    
     int x = ball_rect->x / 32; // block is 32 x 32 TODO change size
     int y = ball_rect->y / 32;
+    
     int ball_x = ball_rect->x; // left side of ball
     int ball_y = ball_rect->y; // upper side of ball
+    
     int velocity_y, velocity_x;
     ball->getVelocity(&velocity_x, &velocity_y);
+
     int ball_height = ball_rect->h;
     int ball_width = ball_rect->w;
 

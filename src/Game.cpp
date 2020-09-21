@@ -71,8 +71,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
     // init map
     map = new Map();
-    map->init();
-
+    map->init(player1, ball);
 
 }
 
