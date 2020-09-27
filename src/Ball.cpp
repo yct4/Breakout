@@ -2,6 +2,7 @@
 #include "Player.hpp"
 #include "TextureManager.hpp"
 #include <math.h>
+#include "Game.hpp"
 
 const char* Ball::BALL_FILE = "../assets/ball.png";
 const int SCREEN_HEIGHT = 640;
@@ -14,7 +15,7 @@ const int VELOCITY_INCREMENT = 2;
 Ball::Ball() {}
 Ball::~Ball() {}
 
-void Ball::init() {
+void Ball::init(int x, int y) {
     // loads file as texture
     ballTex = TextureManager::LoadTexture(BALL_FILE);
 
@@ -26,10 +27,10 @@ void Ball::init() {
     dest.h /= 20;
 
     // sets initial x-position of object middle of screen
-    dest.x = (SCREEN_WIDTH - dest.w) / 2;
+    dest.x = x; // (SCREEN_WIDTH - dest.w) / 2;
 
     // sets initial y-position of object middle of screen
-    dest.y = (SCREEN_HEIGHT - dest.h) / 2;
+    dest.y = y; // (SCREEN_HEIGHT - dest.h) / 2;
 
     // speed of ball
     velocity_x = INIT_X_VELOCITY;
@@ -37,6 +38,7 @@ void Ball::init() {
 
 }
 
+/*
 // returns false if the ball hits the bottom of the screen else returns true
 bool Ball::move(Player* player1) {
 
@@ -63,11 +65,16 @@ bool Ball::move(Player* player1) {
         velocity_x *= -1;
     }
 
+    if (dest.y <= 0) {
+    	dest.y = 0;
+        velocity_y *= -1;
+    }
+
     dest.x += velocity_x;
     dest.y += velocity_y;
     return true;
 }
-
+*/
 void Ball::render() {
     TextureManager::Draw(ballTex, &dest);
 }
@@ -77,7 +84,7 @@ void Ball::reset() {
     dest.x = (SCREEN_WIDTH - dest.w) / 2;
 
     // sets initial y-position of object middle of screen
-    dest.y = (SCREEN_HEIGHT - dest.h) / 2;
+    dest.y = (SCREEN_HEIGHT - Game::SCORE_HEIGHT - dest.h) / 2;
 
     // speed of ball
     velocity_x = INIT_X_VELOCITY;
