@@ -102,7 +102,7 @@ void Map::init(Ball* _ball, Player* _player1) {
 // TODO get rid of dirt only grass can slow down ball
 // returns false when Game over, else returns true
 // TODO subfunctions: look at map, look at ball
-bool Map::update() {
+bool Map::update(Ball* ball, Player* player1) {
     // ball local variables	
     SDL_Rect* ball_rect = ball->getDestRect();
     
@@ -176,7 +176,7 @@ bool Map::update() {
 	ball->updateVelocity(velocity_x, velocity_y * -1);
     }
 
-    ball->updatePosition(ball_x + velocity_x, velocity_y);
+    ball->updatePosition(ball_x + velocity_x, ball_y + velocity_y);
 
     return true;
 }

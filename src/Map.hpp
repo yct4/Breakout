@@ -19,7 +19,7 @@ class Map {
 
         void LoadMap(int** arr);
         void init(Ball* _ball, Player* _player1);
-        bool update();
+        bool update(Ball* _ball, Player* _player1);
         void DrawMap();
         void reset();
 

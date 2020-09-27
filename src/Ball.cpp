@@ -15,7 +15,8 @@ const int VELOCITY_INCREMENT = 2;
 Ball::Ball() {}
 Ball::~Ball() {}
 
-void Ball::init(int x, int y) {
+//void Ball::init(int x, int y) {
+void Ball::init() {
     // loads file as texture
     ballTex = TextureManager::LoadTexture(BALL_FILE);
 
@@ -27,10 +28,10 @@ void Ball::init(int x, int y) {
     dest.h /= 20;
 
     // sets initial x-position of object middle of screen
-    dest.x = x; // (SCREEN_WIDTH - dest.w) / 2;
+    dest.x = (SCREEN_WIDTH - dest.w) / 2;
 
     // sets initial y-position of object middle of screen
-    dest.y = y; // (SCREEN_HEIGHT - dest.h) / 2;
+    dest.y = (SCREEN_HEIGHT - dest.h) / 2;
 
     // speed of ball
     velocity_x = INIT_X_VELOCITY;
