@@ -158,27 +158,21 @@ bool Map::update(Ball* ball, Player* player1) {
         ball->updateVelocity(velocity_x, velocity_y);
     }
     
-    
-
-    // check if ball hits left boundary
-    if (ball_x <= 0) {
-    	ball->updatePosition(0, ball_y);
-	ball->updateVelocity(velocity_x * -1, velocity_y);
-	return true;
-    }
-
-    // check if ball hits right boundary
-    if ((ball_x + ball_width) >= Game::SCREEN_WIDTH) {
-    	ball->updatePosition(Game::SCREEN_WIDTH - ball_width, ball_y);
-	ball->updateVelocity(velocity_x * -1, velocity_y);
-	return true;
-    }
-
     // check upper boundary
     if (ball_y < Game::SCORE_HEIGHT) {
     	ball->updatePosition(ball_x, Game::SCORE_HEIGHT + 5);
 	ball->updateVelocity(velocity_x, velocity_y * -1);
 	return true;
+    }
+
+    // check if ball hits left boundary
+    if (ball_x <= 0) {
+	ball->updateVelocity(velocity_x * -1, velocity_y);
+    }
+
+    // check if ball hits right boundary
+    else if ((ball_x + ball_width) >= Game::SCREEN_WIDTH) {
+	ball->updateVelocity(velocity_x * -1, velocity_y);
     }
    
     ball->updatePosition(ball_x + velocity_x, ball_y + velocity_y);
