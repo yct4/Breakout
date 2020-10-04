@@ -126,7 +126,7 @@ bool Map::update(Ball* ball, Player* player1) {
     bool isUpdated = false;
     for (int x_temp = x; x_temp <= x + 1; x_temp++) { // checks adjacent blocks
 	// check Map boundaries
-        if(x_temp < 0 || y < 0 || x_temp >= MAP_WIDTH || y >= (MAP_HEIGHT - Game::SCORE_HEIGHT)) {
+        if(x_temp < 0 || y < 0 || x_temp >= MAP_WIDTH || y >= MAP_HEIGHT) {
             continue;
         }
         Block* block = blockMap[y][x_temp];
@@ -151,9 +151,8 @@ bool Map::update(Ball* ball, Player* player1) {
     	return false; // Game over 
     }
 
-    // check if ball hits player paddle, TODO add player1 to the Map, add list of players
+    // check if ball hits player paddle
     if (SDL_HasIntersection(player1_rect, ball_rect)) {
-        // TODO make function for changing ball velocity
 	velocity_y *= -1;
         velocity_x = rand() % Ball::ANGLE_RANGE - (Ball::ANGLE_RANGE-1) / 2;
         ball->updateVelocity(velocity_x, velocity_y);
