@@ -108,8 +108,10 @@ bool Map::update(Ball* ball, Player* player1) {
     
     // blockMap index, each block is 32 x 32
     int x = ball_rect->x / 32; 
-    int y = (ball_rect->y - Game::SCORE_HEIGHT) / 32;
-    
+    int y = ball_rect->y / 32;
+    int y_map = (ball_rect->y - Game::SCORE_HEIGHT) / 32; // adjusted index in blockMap
+
+
     int ball_x = ball_rect->x; // left side of ball
     int ball_y = ball_rect->y; // upper side of ball
     
@@ -126,10 +128,10 @@ bool Map::update(Ball* ball, Player* player1) {
     bool isUpdated = false;
     for (int x_temp = x; x_temp <= x + 1; x_temp++) { // checks adjacent blocks
 	// check Map boundaries
-        if(x_temp < 0 || y < 0 || x_temp >= MAP_WIDTH || y >= MAP_HEIGHT) {
+        if(x_temp < 0 || y_map < 0 || x_temp >= MAP_WIDTH || y_map >= MAP_HEIGHT) {
             continue;
         }
-        Block* block = blockMap[y][x_temp];
+        Block* block = blockMap[y_map][x_temp];
         if (block == NULL) {
             continue;
         }
