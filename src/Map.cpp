@@ -106,8 +106,9 @@ bool Map::update(Ball* ball, Player* player1) {
     // ball local variables	
     SDL_Rect* ball_rect = ball->getDestRect();
     
-    int x = ball_rect->x / 32; // block is 32 x 32 TODO change size
-    int y = ball_rect->y / 32;
+    // blockMap index, each block is 32 x 32
+    int x = ball_rect->x / 32; 
+    int y = (ball_rect->y - Game::SCORE_HEIGHT) / 32;
     
     int ball_x = ball_rect->x; // left side of ball
     int ball_y = ball_rect->y; // upper side of ball
@@ -181,14 +182,14 @@ bool Map::update(Ball* ball, Player* player1) {
 }
 
 void Map::DrawMap() {
-
+    // iterate all blocks in blockMap
     for(int row = 0; row < MAP_HEIGHT; row++) {
         for(int col = 0; col < MAP_WIDTH; col++) {
             if (blockMap[row][col] != NULL) {
                 blockMap[row][col]->render();
             } else {
-                dest.x = col * 32;
-                dest.y = row * 32;
+                dest.x = col * 32; 
+                dest.y = row * 32 + Game::SCORE_HEIGHT;
                 TextureManager::Draw(water, &dest);
             }
         }

@@ -64,8 +64,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
     // init player, start in the middle of the bottom of the screen
     int x1_init = (SCREEN_WIDTH - PLAYER_IMG_WIDTH / PLAYER_SCALE) / 2; 
-    int y1_init = (SCREEN_HEIGHT - SCORE_HEIGHT - PLAYER_IMG_HEIGHT / PLAYER_SCALE);
-    //int y1_init = (SCREEN_HEIGHT - PLAYER_IMG_HEIGHT / PLAYER_SCALE);
+    int y1_init = (SCREEN_HEIGHT - PLAYER_IMG_HEIGHT / PLAYER_SCALE);
     player1 = new Player(SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT, x1_init, y1_init);
     player1->init();
 
