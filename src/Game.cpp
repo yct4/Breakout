@@ -14,9 +14,9 @@ const int PLAYER_IMG_HEIGHT = 27;
 const int PLAYER_IMG_WIDTH = 208;
 
 // ball image constants
-const int BALL_SCALE = 20;
-const int BALL_IMG_WIDTH = ;
-const int BALL_IMG_HEIGHT = ;
+//const int BALL_SCALE = 20;
+//const int BALL_IMG_WIDTH = ;
+//const int BALL_IMG_HEIGHT = ;
 
 SDL_Renderer* Game::renderer = nullptr;
 
@@ -56,14 +56,14 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     startButtonRect.y = (SCREEN_HEIGHT - startButtonRect.h) / 2;
 
     // init game objects
-    int ball_x_init = (SCREEN_WIDTH - BALL_IMG_WIDTH / BALL_SCALE) / 2;
-    int ball_y_init = (SCREEN_HEIGHT - BALL_IMG_HEIGHT / BALL_SCALE) / 2;
-    ball = new Ball(ball_x_init, ball_y_init);
+    //int ball_x_init = (SCREEN_WIDTH - BALL_IMG_WIDTH / BALL_SCALE) / 2;
+    //int ball_y_init = (SCREEN_HEIGHT - BALL_IMG_HEIGHT / BALL_SCALE) / 2;
+    //ball = new Ball(ball_x_init, ball_y_init);
+    ball = new Ball();
     ball->init();
 
     // init player, start in the middle of the bottom of the screen
     int x1_init = (SCREEN_WIDTH - PLAYER_IMG_WIDTH / PLAYER_SCALE) / 2; 
-    //int y1_init = (SCREEN_HEIGHT - SCORE_HEIGHT - PLAYER_IMG_HEIGHT / PLAYER_SCALE);
     int y1_init = (SCREEN_HEIGHT - PLAYER_IMG_HEIGHT / PLAYER_SCALE);
     player1 = new Player(SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT, x1_init, y1_init);
     player1->init();
@@ -71,7 +71,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
     // init map
     map = new Map();
-    map->init(player1, ball);
+    map->init(ball, player1);
 
 }
 

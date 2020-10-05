@@ -13,13 +13,13 @@ class Map {
         Map();
         ~Map();
 
-        static const int MAP_WIDTH = 25;
-        static const int MAP_HEIGHT = 20;
-        static const int BLOCK_ROWS = 8;
+        static const int MAP_WIDTH = 25; 
+        static const int MAP_HEIGHT = 15; // Height of map in number of blocks
+        static const int BLOCK_ROWS = 8; // how many rows are grass initially
 
         void LoadMap(int** arr);
         void init(Ball* _ball, Player* _player1);
-        bool update();
+        bool update(Ball* _ball, Player* _player1);
         void DrawMap();
         void reset();
 
