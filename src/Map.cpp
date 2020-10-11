@@ -162,7 +162,7 @@ bool Map::update(Ball* ball, Player* player1) {
     
     // check upper boundary
     if (ball_y < Game::SCORE_HEIGHT) {
-    	ball->updatePosition(ball_x, Game::SCORE_HEIGHT + 5);
+    	ball->updatePosition(ball_x, Game::SCORE_HEIGHT);
 	ball->updateVelocity(velocity_x, velocity_y * -1);
 	return true;
     }
