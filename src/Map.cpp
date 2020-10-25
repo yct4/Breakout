@@ -101,7 +101,6 @@ void Map::init(Ball* _ball, Player* _player1) {
 
 // TODO get rid of dirt only grass can slow down ball
 // returns false when Game over, else returns true
-// TODO subfunctions: look at map, look at ball
 bool Map::update(Ball* ball, Player* player1) {
     // ball local variables	
     SDL_Rect* ball_rect = ball->getDestRect();
@@ -130,11 +129,9 @@ bool Map::update(Ball* ball, Player* player1) {
 	for (int y_temp = y_map - 1; y_temp <= y + 1;  y_temp++) {
 
 		// check Map boundaries
-        	//if(x_temp < 0 || y_map < 0 || x_temp >= MAP_WIDTH || y_map >= MAP_HEIGHT) {
         	if(x_temp < 0 || y_temp < 0 || x_temp >= MAP_WIDTH || y_temp >= MAP_HEIGHT) {
                     continue;
         	}
-        	//Block* block = blockMap[y_map][x_temp];
 		Block* block = blockMap[y_temp][x_temp];
         	if (block == NULL) {
         	    continue;
@@ -146,7 +143,9 @@ bool Map::update(Ball* ball, Player* player1) {
         	}
 	}
     }
-    // if ball hit block of dirt, change dirt to grass
+
+    // Update Ball Velocity
+
     if (isUpdated) {
         velocity_y *= -1;
         velocity_x = rand() % Ball::ANGLE_RANGE - (Ball::ANGLE_RANGE-1) / 2; // rand() % 5 - 2
@@ -186,6 +185,7 @@ bool Map::update(Ball* ball, Player* player1) {
     // fetch updated velocity before updating position
     ball->getVelocity(&velocity_x, &velocity_y);
 
+    // update ball position
     ball->updatePosition(ball_x + velocity_x, ball_y + velocity_y);
 
     return true;

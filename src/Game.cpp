@@ -13,11 +13,6 @@ const int PLAYER_SCALE = 2;
 const int PLAYER_IMG_HEIGHT = 27;
 const int PLAYER_IMG_WIDTH = 208;
 
-// ball image constants
-//const int BALL_SCALE = 20;
-//const int BALL_IMG_WIDTH = ;
-//const int BALL_IMG_HEIGHT = ;
-
 SDL_Renderer* Game::renderer = nullptr;
 
 Game::Game() {}
@@ -44,21 +39,18 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
         printf("renderer created!\n");
     }
 
-    // init other variables
+    // initialize game to start in Start Screen
     isRunning = false;
 
     // initialize start button
     buttonTex = TextureManager::LoadTexture(START_BUTTON_FILE);
     // connects our texture with startButtonRect to control position
     SDL_QueryTexture(buttonTex, NULL, NULL, &startButtonRect.w, &startButtonRect.h);
-        // sets initial position of object middle of screen
+    // sets initial position of object middle of screen
     startButtonRect.x = (SCREEN_WIDTH - startButtonRect.w) / 2;
     startButtonRect.y = (SCREEN_HEIGHT - startButtonRect.h) / 2;
 
     // init game objects
-    //int ball_x_init = (SCREEN_WIDTH - BALL_IMG_WIDTH / BALL_SCALE) / 2;
-    //int ball_y_init = (SCREEN_HEIGHT - BALL_IMG_HEIGHT / BALL_SCALE) / 2;
-    //ball = new Ball(ball_x_init, ball_y_init);
     ball = new Ball();
     ball->init();
 
@@ -90,13 +82,14 @@ void Game::handleEvents() {
         } else if (event.type == SDL_QUIT) { // exit game if window is closed
             isExited = true;
             break;
-        }
+	} else {
+	    
+	}
     }
 }
 
 
 void Game::update() {
-    // isRunning = ball->move(player1);
     isRunning = map->update(ball, player1);
 }
 
