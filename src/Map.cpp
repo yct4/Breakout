@@ -123,25 +123,30 @@ bool Map::update(Ball* ball, Player* player1) {
     // player local variables
     SDL_Rect* player1_rect = player1->getRect();
 
+    // Block local variables
+    Block* block;
+
     // check if ball hit a block of dirt
     bool isUpdated = false;
     for (int x_temp = x; x_temp <= x + 1; x_temp++) { // checks adjacent blocks
-	for (int y_temp = y_map - 1; y_temp <= y + 1;  y_temp++) {
+        for (int y_temp = y_map - 1; y_temp <= y + 1;  y_temp++) {
 
-		// check Map boundaries
+        	// check Map boundaries
         	if(x_temp < 0 || y_temp < 0 || x_temp >= MAP_WIDTH || y_temp >= MAP_HEIGHT) {
                     continue;
         	}
-		Block* block = blockMap[y_temp][x_temp];
+        	block = blockMap[y_temp][x_temp];
         	if (block == NULL) {
         	    continue;
         	}
-        	// replace dirt with grass
-        	if (SDL_HasIntersection(block->getRect(), ball_rect) && !block->getIsDestroyed() && block->getColor() != Block::GRASS) {
+		// replace dirt with grass
+        	//if (SDL_HasIntersection(block->getRect(), ball_rect) && !block->getIsDestroyed() && block->getColor() != Block::GRASS) {
+		if (SDL_HasIntersection(block->getRect(), ball_rect) && !block->getIsDestroyed() && block->getColor() != Block::GRASS) {
+                    block->changeColor(Block::GRASS);
         	    isUpdated = true;
-        	    block->destroy();
+        	    //block->destroy();
         	}
-	}
+        }
     }
 
     // Update Ball Velocity

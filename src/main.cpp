@@ -28,10 +28,10 @@ int main(int argc, char *argv[]) {
         game->update();
         game->render();
 
-        //frameTime = SDL_GetTicks() - frameStart; // how long handleever, update, and render takes
-        //if (FRAME_DELAY > frameTime) {
-        //    SDL_Delay(FRAME_DELAY - frameTime);
-        //}
+        frameTime = SDL_GetTicks() - frameStart; // how long handleever, update, and render takes
+        if (FRAME_DELAY > frameTime) {
+            SDL_Delay(FRAME_DELAY - frameTime);
+        }
 
         if(!game->running()) {
             waitInStartScreen();
