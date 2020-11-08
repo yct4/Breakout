@@ -51,7 +51,6 @@ void Map::LoadMap(int** arr) {
                     blockMap[r][c] = b;
                 } else { // block already exists, change color
                     blockMap[r][c]->changeColor(arr[r][c]);
-                    blockMap[r][c]->reset();
                 }
             } else { // no block should be in this square for the next level
                 if(blockMap[r][c] != NULL) { // delete existing block
@@ -140,11 +139,10 @@ bool Map::update(Ball* ball, Player* player1) {
         	    continue;
         	}
 		// replace dirt with grass
-        	//if (SDL_HasIntersection(block->getRect(), ball_rect) && !block->getIsDestroyed() && block->getColor() != Block::GRASS) {
-		if (SDL_HasIntersection(block->getRect(), ball_rect) && !block->getIsDestroyed() && block->getColor() != Block::GRASS) {
+		if (SDL_HasIntersection(block->getRect(), ball_rect) && block->getColor() != Block::GRASS) {
                     block->changeColor(Block::GRASS);
         	    isUpdated = true;
-        	    //block->destroy();
+        	    
         	}
         }
     }
@@ -219,7 +217,6 @@ void Map::reset() {
             if(blockMap[r][c] == NULL) { // no block to reset in current map
                 continue;
             }
-            blockMap[r][c]->reset();
         }
     }
 }
