@@ -55,6 +55,11 @@ class Game {
         SDL_Rect startButtonRect;
         SDL_Texture* buttonTex;
 
+	// score
+	SDL_Rect scoreRect;
+        SDL_Texture* scoreTex;
+
+
 };
 
 #endif // Game_hpp

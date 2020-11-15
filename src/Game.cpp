@@ -7,6 +7,7 @@
 using namespace std;
 
 const char* START_BUTTON_FILE = "../assets/start_button.png";
+const char* FONT_FILE = "../assets/open-sans/OpenSans-regular.ttf";
 
 // player image constants
 const int PLAYER_SCALE = 2;
@@ -65,7 +66,17 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     map = new Map();
     map->init(ball, player1);
 
-    
+    // init score
+    if (!TextureManager::init(FONT_FILE)) {
+       printf("failed to initialize ttf font\n");
+       return; 
+    }
+    scoreTex = TextureManager::LoadTextureMessage("test text");
+    // connects our texture with scoreRect to control position
+    SDL_QueryTexture(scoreTex, NULL, NULL, &scoreRect.w, &scoreRect.h);
+    // sets initial position of object middle of screen
+    scoreRect.x = (SCREEN_WIDTH - scoreRect.w) / 2;
+    scoreRect.y = (SCORE_HEIGHT - scoreRect.h) / 2;
 
 }
 
@@ -106,6 +117,8 @@ void Game::render() {
     //render game objects
     player1->render(); // player
     ball->render();
+    // render score to screen
+    TextureManager::Draw(scoreTex, &scoreRect);
 
     SDL_RenderPresent(renderer);
 }
