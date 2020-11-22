@@ -19,18 +19,6 @@ public:
 
     void changeColor(int _color);
 
-    void reset() {
-        isDestroyed = false;
-    };
-
-    void destroy() {
-        isDestroyed = true;
-    };
-
-    bool getIsDestroyed() {
-        return isDestroyed;
-    }
-
     int getColor() {
         return color;
     }
@@ -49,7 +37,6 @@ private:
     SDL_Rect dest;
     SDL_Texture* blockTex;
 
-    bool isDestroyed;
     int color;
 
 };

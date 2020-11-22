@@ -27,7 +27,6 @@ void Block::init(int _x, int _y, int _color) {
     dest.x = _x;
     dest.y = _y;
 
-    isDestroyed = false;
 }
 
 void Block::changeColor(int _color) {
@@ -36,10 +35,5 @@ void Block::changeColor(int _color) {
 };
 
 void Block::render() {
-    if (!isDestroyed) {
-        TextureManager::Draw(this->blockTex, &dest);
-    } else {
-        SDL_Texture* grassTex = TextureManager::LoadTexture(BLOCK_FILES[GRASS]);
-        TextureManager::Draw(grassTex, &dest);
-    }
+    TextureManager::Draw(this->blockTex, &dest);
 }

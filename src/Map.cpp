@@ -51,7 +51,6 @@ void Map::LoadMap(int** arr) {
                     blockMap[r][c] = b;
                 } else { // block already exists, change color
                     blockMap[r][c]->changeColor(arr[r][c]);
-                    blockMap[r][c]->reset();
                 }
             } else { // no block should be in this square for the next level
                 if(blockMap[r][c] != NULL) { // delete existing block
@@ -101,7 +100,6 @@ void Map::init(Ball* _ball, Player* _player1) {
 
 // TODO get rid of dirt only grass can slow down ball
 // returns false when Game over, else returns true
-// TODO subfunctions: look at map, look at ball
 bool Map::update(Ball* ball, Player* player1) {
     // ball local variables	
     SDL_Rect* ball_rect = ball->getDestRect();
@@ -124,27 +122,36 @@ bool Map::update(Ball* ball, Player* player1) {
     // player local variables
     SDL_Rect* player1_rect = player1->getRect();
 
+    // Block local variables
+    Block* block;
+
     // check if ball hit a block of dirt
     bool isUpdated = false;
     for (int x_temp = x; x_temp <= x + 1; x_temp++) { // checks adjacent blocks
-	// check Map boundaries
-        if(x_temp < 0 || y_map < 0 || x_temp >= MAP_WIDTH || y_map >= MAP_HEIGHT) {
-            continue;
-        }
-        Block* block = blockMap[y_map][x_temp];
-        if (block == NULL) {
-            continue;
-        }
-        // replace dirt with grass
-        if (SDL_HasIntersection(block->getRect(), ball_rect) && !block->getIsDestroyed() && block->getColor() != Block::GRASS) {
-            isUpdated = true;
-            block->destroy();
+        for (int y_temp = y_map - 1; y_temp <= y + 1;  y_temp++) {
+
+        	// check Map boundaries
+        	if(x_temp < 0 || y_temp < 0 || x_temp >= MAP_WIDTH || y_temp >= MAP_HEIGHT) {
+                    continue;
+        	}
+        	block = blockMap[y_temp][x_temp];
+        	if (block == NULL) {
+        	    continue;
+        	}
+		// replace dirt with grass
+		if (SDL_HasIntersection(block->getRect(), ball_rect) && block->getColor() != Block::GRASS) {
+                    block->changeColor(Block::GRASS);
+        	    isUpdated = true;
+        	    
+        	}
         }
     }
-    // if ball hit block of dirt, change dirt to grass
+
+    // Update Ball Velocity
+
     if (isUpdated) {
         velocity_y *= -1;
-        velocity_x = rand() % Ball::ANGLE_RANGE - (Ball::ANGLE_RANGE-1) / 2;
+        velocity_x = rand() % Ball::ANGLE_RANGE - (Ball::ANGLE_RANGE-1) / 2; // rand() % 5 - 2
         ball->updateVelocity(velocity_x, velocity_y);
     }
 
@@ -156,27 +163,32 @@ bool Map::update(Ball* ball, Player* player1) {
     // check if ball hits player paddle
     if (SDL_HasIntersection(player1_rect, ball_rect)) {
 	velocity_y *= -1;
-        velocity_x = rand() % Ball::ANGLE_RANGE - (Ball::ANGLE_RANGE-1) / 2;
+        velocity_x = rand() % Ball::ANGLE_RANGE - (Ball::ANGLE_RANGE-1) / 2; // rand() % 5 - 2
         ball->updateVelocity(velocity_x, velocity_y);
     }
     
     // check upper boundary
-    if (ball_y < Game::SCORE_HEIGHT) {
-    	ball->updatePosition(ball_x, Game::SCORE_HEIGHT + 5);
+    if (ball_y <= Game::SCORE_HEIGHT) {
 	ball->updateVelocity(velocity_x, velocity_y * -1);
-	return true;
+	ball_y = Game::SCORE_HEIGHT;
     }
 
     // check if ball hits left boundary
     if (ball_x <= 0) {
 	ball->updateVelocity(velocity_x * -1, velocity_y);
+        ball_x = 0;
     }
 
     // check if ball hits right boundary
     else if ((ball_x + ball_width) >= Game::SCREEN_WIDTH) {
 	ball->updateVelocity(velocity_x * -1, velocity_y);
+	ball_x = Game::SCREEN_WIDTH - ball_width;
     }
-   
+  
+    // fetch updated velocity before updating position
+    ball->getVelocity(&velocity_x, &velocity_y);
+
+    // update ball position
     ball->updatePosition(ball_x + velocity_x, ball_y + velocity_y);
 
     return true;
@@ -205,7 +217,6 @@ void Map::reset() {
             if(blockMap[r][c] == NULL) { // no block to reset in current map
                 continue;
             }
-            blockMap[r][c]->reset();
         }
     }
 }

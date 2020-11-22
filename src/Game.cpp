@@ -7,16 +7,12 @@
 using namespace std;
 
 const char* START_BUTTON_FILE = "../assets/start_button.png";
+const char* FONT_FILE = "../assets/open-sans/OpenSans-Regular.ttf";
 
 // player image constants
 const int PLAYER_SCALE = 2;
 const int PLAYER_IMG_HEIGHT = 27;
 const int PLAYER_IMG_WIDTH = 208;
-
-// ball image constants
-//const int BALL_SCALE = 20;
-//const int BALL_IMG_WIDTH = ;
-//const int BALL_IMG_HEIGHT = ;
 
 SDL_Renderer* Game::renderer = nullptr;
 
@@ -44,21 +40,18 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
         printf("renderer created!\n");
     }
 
-    // init other variables
+    // initialize game to start in Start Screen
     isRunning = false;
 
     // initialize start button
     buttonTex = TextureManager::LoadTexture(START_BUTTON_FILE);
     // connects our texture with startButtonRect to control position
     SDL_QueryTexture(buttonTex, NULL, NULL, &startButtonRect.w, &startButtonRect.h);
-        // sets initial position of object middle of screen
+    // sets initial position of object middle of screen
     startButtonRect.x = (SCREEN_WIDTH - startButtonRect.w) / 2;
     startButtonRect.y = (SCREEN_HEIGHT - startButtonRect.h) / 2;
 
     // init game objects
-    //int ball_x_init = (SCREEN_WIDTH - BALL_IMG_WIDTH / BALL_SCALE) / 2;
-    //int ball_y_init = (SCREEN_HEIGHT - BALL_IMG_HEIGHT / BALL_SCALE) / 2;
-    //ball = new Ball(ball_x_init, ball_y_init);
     ball = new Ball();
     ball->init();
 
@@ -73,12 +66,37 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     map = new Map();
     map->init(ball, player1);
 
+    // init score    
+    try {
+	   fontTextureManager = new TextureManager(FONT_FILE); 
+    }
+    catch (int e) {
+	   if (e == -1) {
+	       printf("TTF init failed!!!\n");
+	       //fontTextureManager->~TextureManager();
+	   } else if (e == 2) {
+	       printf("font init failed!!\n");
+	       //fontTextureManager->~TextureManager();
+	   }
+	    
+    }
+    //if (!TextureManager::init(FONT_FILE)) {
+    //   printf("failed to initialize ttf font\n");
+    //   return; 
+    //}
+    scoreTex = fontTextureManager->LoadTextureMessage("test text");
+    // connects our texture with scoreRect to control position
+    SDL_QueryTexture(scoreTex, NULL, NULL, &scoreRect.w, &scoreRect.h);
+    // sets initial position of object middle of screen
+    scoreRect.x = (SCREEN_WIDTH - scoreRect.w) / 2;
+    scoreRect.y = (SCORE_HEIGHT - scoreRect.h) / 2;
+
 }
 
 
 void Game::handleEvents() {
     SDL_Event event; 
-
+    
     while (SDL_PollEvent(&event)) {
         if (event.type == SDL_KEYDOWN){ 
             if (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE) { // exit game
@@ -90,13 +108,17 @@ void Game::handleEvents() {
         } else if (event.type == SDL_QUIT) { // exit game if window is closed
             isExited = true;
             break;
-        }
+	}
     }
+}
+
+int isKeydownEvent(void* userdata, SDL_Event* event) {
+//static int isKeydownEvent(const SDL_Event* event, void* userdata) {
+    return event->type == SDL_KEYDOWN || event->type == SDL_QUIT;
 }
 
 
 void Game::update() {
-    // isRunning = ball->move(player1);
     isRunning = map->update(ball, player1);
 }
 
@@ -108,11 +130,15 @@ void Game::render() {
     //render game objects
     player1->render(); // player
     ball->render();
+    // render score to screen
+    TextureManager::Draw(scoreTex, &scoreRect);
 
     SDL_RenderPresent(renderer);
 }
 
 void Game::renderStartScreen() {
+    SDL_SetEventFilter(NULL, NULL);
+	
     SDL_Event event; 
     int mouse_x = 0;
     int mouse_y = 0;
@@ -128,6 +154,10 @@ void Game::renderStartScreen() {
                 mouse_y = event.button.y;
                 if( ( mouse_x > startButtonRect.x ) && ( mouse_x < startButtonRect.x + startButtonRect.w ) && ( mouse_y > startButtonRect.y ) && ( mouse_y < startButtonRect.y + startButtonRect.h ) ) {
                     isRunning = true;
+		    // set Event filter
+                    void* userdata = NULL;
+                    SDL_SetEventFilter(isKeydownEvent, userdata);
+
                 }
             }
         } else if (event.type == SDL_KEYDOWN){ 

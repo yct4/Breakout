@@ -8,17 +8,19 @@
 #include "Player.hpp"
 #include "Block.hpp"
 
+int isKeydownEvent(void* userdata, SDL_Event* event);
 class Game {
 
     public:
 
         Game();
         ~Game();
-
+	
         void init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen);
         void DrawMap();
         void renderBlock(SDL_Window* window, SDL_Rect* box);
         void handleEvents();
+	//static int  isKeydownEvent(const SDL_Event* event, void* userdata);
         void update();
         void render();
         void clean();
@@ -52,6 +54,12 @@ class Game {
         // start button
         SDL_Rect startButtonRect;
         SDL_Texture* buttonTex;
+
+	// score
+	SDL_Rect scoreRect;
+        SDL_Texture* scoreTex;
+	TextureManager* fontTextureManager;
+
 
 };
 
