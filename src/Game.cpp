@@ -7,7 +7,7 @@
 using namespace std;
 
 const char* START_BUTTON_FILE = "../assets/start_button.png";
-const char* FONT_FILE = "../assets/open-sans/OpenSans-regular.ttf";
+const char* FONT_FILE = "../assets/open-sans/OpenSans-Regular.ttf";
 
 // player image constants
 const int PLAYER_SCALE = 2;
@@ -66,12 +66,25 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     map = new Map();
     map->init(ball, player1);
 
-    // init score
-    if (!TextureManager::init(FONT_FILE)) {
-       printf("failed to initialize ttf font\n");
-       return; 
+    // init score    
+    try {
+	   fontTextureManager = new TextureManager(FONT_FILE); 
     }
-    scoreTex = TextureManager::LoadTextureMessage("test text");
+    catch (int e) {
+	   if (e == -1) {
+	       printf("TTF init failed!!!\n");
+	       //fontTextureManager->~TextureManager();
+	   } else if (e == 2) {
+	       printf("font init failed!!\n");
+	       //fontTextureManager->~TextureManager();
+	   }
+	    
+    }
+    //if (!TextureManager::init(FONT_FILE)) {
+    //   printf("failed to initialize ttf font\n");
+    //   return; 
+    //}
+    scoreTex = fontTextureManager->LoadTextureMessage("test text");
     // connects our texture with scoreRect to control position
     SDL_QueryTexture(scoreTex, NULL, NULL, &scoreRect.w, &scoreRect.h);
     // sets initial position of object middle of screen

@@ -58,6 +58,7 @@ class Game {
 	// score
 	SDL_Rect scoreRect;
         SDL_Texture* scoreTex;
+	TextureManager* fontTextureManager;
 
 
 };

@@ -7,15 +7,29 @@
 
 class TextureManager {
     private:
-	    static TTF_Font* font;
-	    static SDL_Color textColor;
+	     TTF_Font* font;
+	     SDL_Color textColor;
 
     public:
-	static bool init(const char* fileName);
-        static SDL_Texture* LoadTexture(const char* fileName);
-        static SDL_Texture* LoadTextureMessage(const char* fileName);
-// static void Draw(SDL_Texture* tex, SDL_Rect src, SDL_Rect dest);
-        static void Draw(SDL_Texture* tex, SDL_Rect* dest);
+	//TextureManager(const char* fileName);
+	TextureManager(const char* fileName) {
+     
+            if (TTF_Init() == -1) {
+	        throw -1;
+	    }
+            font = TTF_OpenFont(fileName, 28);
+            if (font == NULL) {
+	        throw 2;
+	    }
+            textColor = {255, 255, 255};
+        };
+
+	~TextureManager();
+	//bool init(const char* fileName);
+         static SDL_Texture* LoadTexture(const char* fileName);
+         SDL_Texture* LoadTextureMessage(const char* fileName);
+//  void Draw(SDL_Texture* tex, SDL_Rect src, SDL_Rect dest);
+         static void Draw(SDL_Texture* tex, SDL_Rect* dest);
 };
 
 #endif // TextureManager_hpp
