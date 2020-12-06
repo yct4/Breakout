@@ -20,6 +20,7 @@ Map::Map() {
     src.h = dest.h = 32;
 
     dest.x = dest.y = 0;
+    score = 0;
 }
 
 Map::~Map() {
@@ -142,7 +143,7 @@ bool Map::update(Ball* ball, Player* player1) {
 		if (SDL_HasIntersection(block->getRect(), ball_rect) && block->getColor() != Block::GRASS) {
                     block->changeColor(Block::GRASS);
         	    isUpdated = true;
-        	    
+	            score++;
         	}
         }
     }

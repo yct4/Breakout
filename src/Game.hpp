@@ -59,6 +59,8 @@ class Game {
 	SDL_Rect scoreRect;
         SDL_Texture* scoreTex;
 	TextureManager* fontTextureManager;
+	int prev_score;
+	char str[20];
 
 
 };

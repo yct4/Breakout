@@ -34,6 +34,7 @@ class Map {
         SDL_Texture* water;
 
         int** map;
+	int score;
 };
 
 
